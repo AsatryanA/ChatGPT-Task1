@@ -34,7 +34,7 @@ public class TodoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Todo> updateTodo(@PathVariable Long id, @RequestBody Todo todo) {
-        if (!todoService.getTodoById(id).isPresent()) {
+        if (todoService.getTodoById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         todo.setId(id);
@@ -44,7 +44,7 @@ public class TodoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTodo(@PathVariable Long id) {
-        if (!todoService.getTodoById(id).isPresent()) {
+        if (todoService.getTodoById(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         todoService.deleteTodo(id);
